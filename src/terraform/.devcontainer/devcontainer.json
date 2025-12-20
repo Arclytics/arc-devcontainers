@@ -1,0 +1,41 @@
+{
+  "name": "Terraform with Azure CLI",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "TFSWITCH_VERSION": "${templateOption:tfswitchVersion}",
+      "TFLINT_VERSION": "${templateOption:tflintVersion}"
+    }
+  },
+  "features": {
+    "ghcr.io/dhoeric/features/terraform-docs:1": {},
+    "ghcr.io/devcontainers-extra/features/pre-commit:2": {},
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers-extra/features/node-asdf:0": {
+      "skip": "${templateOption:installNodeTools}"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "hashicorp.hcl",
+        "editorconfig.editorconfig",
+        "ms-vscode.makefile-tools",
+        "ms-vscode.azure-account",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh"
+      }
+    }
+  },
+  "postCreateCommand": "git config --global push.autoSetupRemote true && pre-commit install --install-hooks || true && if [ \"${templateOption:installNodeTools}\" = \"true\" ]; then npm install -g @anthropic-ai/claude-code; fi",
+  "remoteEnv": {
+    "TF_LOG": "info",
+    "TF_LOG_PATH": "./terraform.log"
+  },
+  "remoteUser": "vscode"
+}

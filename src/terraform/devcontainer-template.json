@@ -1,0 +1,28 @@
+{
+    "id": "terraform",
+    "version": "1.0.0",
+    "name": "Terraform with Azure CLI",
+    "description": "Terraform development environment with tfswitch, tflint, Azure CLI, and zsh",
+    "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/terraform",
+    "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
+    "options": {
+        "tfswitchVersion": {
+            "type": "string",
+            "description": "Version of tfswitch to install",
+            "proposals": ["1.2.4", "1.1.2", "1.0.2"],
+            "default": "1.2.4"
+        },
+        "tflintVersion": {
+            "type": "string",
+            "description": "Version of tflint to install",
+            "proposals": ["v0.54.0", "v0.53.0", "v0.52.0"],
+            "default": "v0.54.0"
+        },
+        "installNodeTools": {
+            "type": "boolean",
+            "description": "Install Node.js and Claude Code CLI",
+            "default": false
+        }
+    },
+    "platforms": ["Any"]
+}
