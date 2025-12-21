@@ -1,0 +1,26 @@
+formatter: markdown table
+
+recursive:
+  enabled: false
+  path: .
+
+content: |-
+  {{ .Header }}
+
+    ### Terraform module usage example
+
+    Below you can find a simple example of how to reuse the module.
+
+  {{ .Inputs }}
+
+  {{ .Outputs }}
+
+  {{ .Providers }}
+
+output:
+  file: ROOT_MODULE_DOCS.md
+  mode: inject
+  template: |-
+    <!-- BEGIN_TF_DOCS -->
+    {{ .Content }}
+    <!-- END_TF_DOCS -->
