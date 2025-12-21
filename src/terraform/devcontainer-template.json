@@ -24,5 +24,12 @@
             "default": false
         }
     },
-    "platforms": ["Any"]
+    "platforms": ["Any"],
+    "optionalPaths": [
+        "Makefile",
+        ".tflint.hcl",
+        ".pre-commit-config.yaml",
+        ".terraform-docs-root.yml",
+        ".editorconfig"
+    ]
 }
