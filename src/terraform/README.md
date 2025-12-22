@@ -1,5 +1,5 @@
 
-# Terraform with Azure CLI (terraform)
+# Terraform
 
 Terraform development environment with tfswitch, tflint, Azure CLI, and zsh
 

@@ -1,122 +1,160 @@
-# Dev Container Templates: Self Authoring Guide
+# Arclytics Dev Container Templates
 
-> This repo provides a starting point and example for creating your own custom [Dev Container Templates](https://containers.dev/implementors/templates), hosted for free on GitHub Container Registry.  The example in this repository follows the [Dev Container Template distribution specification](https://containers.dev/implementors/templates-distribution/).  
->
-> To provide feedback on the distribution spec, please leave a comment [on spec issue #71](https://github.com/devcontainers/spec/issues/71).
+[![Test PR](https://github.com/Arclytics/arc-devcontainers/actions/workflows/test-pr.yaml/badge.svg)](https://github.com/Arclytics/arc-devcontainers/actions/workflows/test-pr.yaml)
+[![Release](https://github.com/Arclytics/arc-devcontainers/actions/workflows/release.yaml/badge.svg)](https://github.com/Arclytics/arc-devcontainers/actions/workflows/release.yaml)
 
-## Repo and Template Structure
+> Standardized development container templates for consistent environments across Arclytics engineering teams
 
-This repository contains a _collection_ of two Templates - `hello` and `color`. These Templates serve as simple template implementations which helps containerize the project. Similar to the [`devcontainers/templates`](https://github.com/devcontainers/templates) repo, this repository has a `src` folder.  Each Template has its own sub-folder, containing at least a `devcontainer-template.json` and `.devcontainer/devcontainer.json`. 
+## Overview
 
-```
-├── src
-│   ├── color
-│   │   ├── devcontainer-template.json
-│   │   └──| .devcontainer
-│   │      └── devcontainer.json
-│   ├── hello
-│   │   ├── devcontainer-template.json
-│   │   └──| .devcontainer
-│   │      ├── devcontainer.json
-│   │      └── Dockerfile
-|   ├── ...
-│   │   ├── devcontainer-template.json
-│   │   └──| .devcontainer
-│   │      └── devcontainer.json
-├── test
-│   ├── color
-│   │   └── test.sh
-│   ├── hello
-│   │   └── test.sh
-│   └──test-utils
-│      └── test-utils.sh
-...
-```
+This repository provides a curated collection of [Dev Container](https://containers.dev/) templates for Arclytics. These templates establish consistent, reproducible development environments across teams, eliminating environment configuration drift and reducing onboarding friction.
 
-### Options
+Each template includes pre-configured toolchains, IDE extensions, and development utilities specific to its technology stack. Templates are versioned independently and distributed via GitHub Container Registry for consumption in VS Code, GitHub Codespaces, and other Dev Container-compatible tools.
 
-All available options for a Template should be declared in the `devcontainer-template.json`. The syntax for the `options` property can be found in the [devcontainer Template json properties reference](https://containers.dev/implementors/templates#devcontainer-templatejson-properties).
+## Available Templates
 
-For example, the `color` Template provides three possible options (`red`, `gold`, `green`), where the default value is set to "red".
+| Template | Description | Version | Registry |
+|----------|-------------|---------|----------|
+| [Terraform](src/terraform/) | Production-ready Terraform environment with tfswitch, tflint, Azure CLI, and quality tools | 1.2.0 | `ghcr.io/arclytics/arc-devcontainers/terraform` |
 
-```jsonc
-{
-    // ...
-    "options": {
-        "favorite": {
-            "type": "string",
-            "description": "Choose your favorite color.",
-            "proposals": [
-                "red",
-                "gold",
-                "green"
-            ],
-            "default": "red"
-        }
-    }
-}
+Additional templates for other technology stacks and workflows will be added as standardized environments are defined across the organization.
+
+## Usage
+
+### Prerequisites
+
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [GitHub CLI (gh)](https://cli.github.com/)
+
+### Authentication
+
+Templates are distributed via GitHub Container Registry and require authentication to access. This is a one-time setup per machine.
+
+Authenticate using the GitHub CLI:
+
+```bash
+gh auth login
 ```
 
-An [implementing tool](https://containers.dev/supporting#tools) will use the `options` property from [the documented Dev Container Template properties](https://containers.dev/implementors/templates#devcontainer-templatejson-properties) for customizing the Template. See [option resolution example](https://containers.dev/implementors/templates#option-resolution-example) for details.
+Follow the prompts to authenticate with your GitHub account. This grants Docker access to pull templates from `ghcr.io/arclytics/arc-devcontainers`.
 
-## Distributing Templates
+To verify authentication status:
 
-**Note**: *Allow GitHub Actions to create and approve pull requests* should be enabled in the repository's `Settings > Actions > General > Workflow permissions` for auto generation of `src/<template>/README.md` per Template (which merges any existing `src/<template>/NOTES.md`).
+```bash
+gh auth status
+```
+
+### Adding a Dev Container to Your Project
+
+The recommended approach is to use VS Code's built-in Dev Container configuration workflow:
+
+#### 1. Open Project
+
+Open your project directory in VS Code.
+
+#### 2. Access Command Palette
+
+`Cmd+Shift+P` (macOS) or `Ctrl+Shift+P` (Windows/Linux)
+
+#### 3. Add Dev Container Configuration
+
+Select: **Dev Containers: Add Dev Container Configuration Files...**
+
+![Command Palette](https://code.visualstudio.com/assets/docs/devcontainers/create-dev-container/dev-containers-command.png)
+
+#### 4. Specify Template Source
+
+When prompted for the template source, enter the GHCR reference for your desired template:
+
+```
+ghcr.io/arclytics/arc-devcontainers/terraform
+```
+
+Available template references:
+- Terraform: `ghcr.io/arclytics/arc-devcontainers/terraform`
+
+#### 5. Configure Template Options
+
+VS Code will prompt for any configurable parameters defined in the template. Configure these based on your project requirements. Refer to each template's documentation for available options.
+
+#### 6. Initialize Container
+
+VS Code will prompt to reopen the workspace in the container.
+
+Select **Reopen in Container** or manually execute **Dev Containers: Reopen in Container** from the Command Palette.
+
+#### 7. Container Build
+
+Initial container build may require several minutes depending on the template and network conditions. Subsequent launches will use cached layers and start significantly faster.
+
+Once the build completes, your development environment is ready with all configured tools and extensions.
+
+## Contributing
+
+Contributions from Arclytics engineers are encouraged. To propose new templates or enhance existing ones:
+
+### Adding a New Template
+
+1. **Create template directory structure** in `src/<template-name>/`
+2. **Define required files**:
+   - `devcontainer-template.json` - Template metadata and configurable options
+   - `.devcontainer/devcontainer.json` - Dev container configuration
+   - `.devcontainer/Dockerfile` - (Optional) Custom image definition
+   - `NOTES.md` - Detailed template documentation (what's included, usage, examples)
+3. **Implement test coverage** in `test/<template-name>/test.sh`
+4. **Validate locally**:
+   ```bash
+   ./.github/actions/smoke-test/build.sh <template-name>
+   ./.github/actions/smoke-test/test.sh <template-name>
+   ```
+5. **Submit pull request** with template implementation and documentation
+
+### Template Structure
+
+Standard template organization:
+
+```
+src/
+└── <template-name>/
+    ├── devcontainer-template.json    # Template metadata
+    ├── .devcontainer/
+    │   ├── devcontainer.json         # Dev container configuration
+    │   └── Dockerfile                # (Optional) Custom image
+    ├── NOTES.md                      # Template usage documentation
+    └── README.md                     # Auto-generated from template metadata + NOTES.md
+```
+
+Template README files are auto-generated during the release process. Add detailed documentation to `NOTES.md`, which will be merged with auto-generated content from `devcontainer-template.json`.
 
 ### Versioning
 
-Templates are individually versioned by the `version` attribute in a Template's `devcontainer-template.json`. Templates are versioned according to the semver specification. More details can be found in [the Dev Container Template specification](https://containers.dev/implementors/templates-distribution/#versioning).
+Templates use semantic versioning specified in `devcontainer-template.json`:
+
+- **Patch** (1.0.x): Bug fixes, documentation updates
+- **Minor** (1.x.0): New features, backward-compatible changes
+- **Major** (x.0.0): Breaking changes
 
 ### Publishing
 
-> NOTE: The Distribution spec can be [found here](https://containers.dev/implementors/templates-distribution/).  
->
-> While any registry [implementing the OCI Distribution spec](https://github.com/opencontainers/distribution-spec) can be used, this template will leverage GHCR (GitHub Container Registry) as the backing registry.
+Templates are automatically published to GitHub Container Registry via CI/CD workflows on release creation or `main` branch updates. The automation handles:
 
-Templates are source files packaged together that encode configuration for a complete development environment.
+- Template validation and testing
+- Publishing to `ghcr.io/arclytics/arc-devcontainers/<template-name>`
+- README generation from template metadata
 
-This repo contains a GitHub Action [workflow](.github/workflows/release.yaml) that will publish each template to GHCR.  By default, each Template will be prefixed with the `<owner>/<repo>` namespace.  For example, the two Templates in this repository can be referenced by an [implementing tool](https://containers.dev/supporting#tools) with:
+## Reference Documentation
 
-```
-ghcr.io/devcontainers/template-starter/color:latest
-ghcr.io/devcontainers/template-starter/hello:latest
-```
+- [Dev Containers Documentation](https://containers.dev/)
+- [VS Code Dev Containers Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- [Dev Container Specification](https://containers.dev/implementors/spec/)
+- [Dev Container Templates Guide](https://containers.dev/implementors/templates)
 
-The provided GitHub Action will also publish a third "metadata" package with just the namespace, eg: `ghcr.io/devcontainers/template-starter`. This contains information useful for tools aiding in Template discovery.
+## Support
 
-'`devcontainers/template-starter`' is known as the template collection namespace.
+For issues or questions:
 
-### Marking Template Public
-
-For your Template to be used, it currently needs to be available publicly. By default, OCI Artifacts in GHCR are marked as `private`. 
-
-To make them public, navigate to the Template's "package settings" page in GHCR, and set the visibility to 'public`. 
-
-```
-https://github.com/users/<owner>/packages/container/<repo>%2F<templateName>/settings
-```
-
-### Adding Templates to the Index
-
-Next you will need to add your Templates collection to our [public index](https://containers.dev/templates) so that other community members can find them. Just follow these steps once per collection you create:
-
-* Go to [github.com/devcontainers/devcontainers.github.io](https://github.com/devcontainers/devcontainers.github.io)
-     * This is the GitHub repo backing the [containers.dev](https://containers.dev/) spec site
-* Open a PR to modify the [collection-index.yml](https://github.com/devcontainers/devcontainers.github.io/blob/gh-pages/_data/collection-index.yml) file
-
-This index is from where [supporting tools](https://containers.dev/supporting) like [VS Code Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) and [GitHub Codespaces](https://github.com/templates/codespaces) surface Templates for their Dev Container Creation Configuration UI.
-
-### Testing Templates
-
-This repo contains a GitHub Action [workflow](.github/workflows/test-pr.yaml) for testing the Templates. Similar to the [`devcontainers/templates`](https://github.com/devcontainers/templates) repo, this repository has a `test` folder.  Each Template has its own sub-folder, containing at least a `test.sh`.
-
-For running the tests locally, you would need to execute the following commands -
-
-```
-    ./.github/actions/smoke-test/build.sh ${TEMPLATE-ID} 
-    ./.github/actions/smoke-test/test.sh ${TEMPLATE-ID} 
-```
-
-### Updating Documentation
-
-This repo contains a GitHub Action [workflow](.github/workflows/release.yaml) that will automatically generate documentation (ie. `README.md`) for each Template. This file will be auto-generated from the `devcontainer-template.json` and `NOTES.md`.
+- Review existing [Issues](https://github.com/Arclytics/arc-devcontainers/issues)
+- Contact the Arclytics DevOps team
+- Consult the [Dev Containers documentation](https://code.visualstudio.com/docs/devcontainers/containers)

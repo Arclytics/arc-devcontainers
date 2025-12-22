@@ -1,7 +1,7 @@
 {
     "id": "terraform",
     "version": "1.2.0",
-    "name": "Terraform with Azure CLI",
+    "name": "Terraform",
     "description": "Terraform development environment with tfswitch, tflint, Azure CLI, and zsh",
     "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/terraform",
     "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
