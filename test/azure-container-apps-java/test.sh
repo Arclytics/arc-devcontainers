@@ -13,7 +13,7 @@ check "docker-installed" command -v docker
 check "kubectl-installed" command -v kubectl
 check "helm-installed" command -v helm
 check "azd-installed" command -v azd
-check "containerapp-extension-installed" az extension list --query "[?name=='containerapp'].name" -o tsv | grep -q containerapp
+check "containerapp-extension-installed" az extension list --query "[?name=='containerapp']" -o tsv | grep -q .
 
 # Report result
 reportResults
