@@ -1,0 +1,35 @@
+{
+    "id": "databricks",
+    "version": "1.0.0",
+    "name": "Databricks with PySpark",
+    "description": "Azure Databricks development environment with PySpark, Databricks CLI, Asset Bundles, and pre-commit tools",
+    "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/databricks",
+    "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
+    "options": {
+        "pythonVersion": {
+            "type": "string",
+            "description": "Python version to install",
+            "proposals": ["3.11", "3.10", "3.9"],
+            "default": "3.11"
+        },
+        "databricksCLIVersion": {
+            "type": "string",
+            "description": "Version of Databricks CLI to install",
+            "proposals": ["0.250.0", "0.240.0", "0.230.0"],
+            "default": "0.250.0"
+        },
+        "installSparkLocally": {
+            "type": "boolean",
+            "description": "Install Apache Spark locally for offline development",
+            "default": false
+        }
+    },
+    "platforms": ["Any"],
+    "optionalPaths": [
+        "Makefile",
+        ".pre-commit-config.yaml",
+        ".editorconfig",
+        "databricks.yml",
+        "pyproject.toml"
+    ]
+}

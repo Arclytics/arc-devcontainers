@@ -14,6 +14,7 @@ jobs:
           filters: |
             terraform: ./**/terraform/**
             azure-container-apps-java: ./**/azure-container-apps-java/**
+            databricks: ./**/databricks/**
 
   test:
     needs: [detect-changes]
