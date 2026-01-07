@@ -1,0 +1,76 @@
+# Databricks Asset Bundle Configuration
+# This is an example configuration file for Databricks Asset Bundles.
+# Customize this file according to your project requirements.
+
+bundle:
+  name: my-databricks-project
+
+# Include additional configuration files
+include:
+  - resources/*.yml
+
+# Variables that can be referenced in resource definitions
+variables:
+  warehouse_id:
+    description: "Databricks SQL Warehouse ID"
+    default: "your-warehouse-id"
+
+# Target environments
+targets:
+  # Development environment
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-<workspace-id>.azuredatabricks.net
+    
+  # Production environment
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-<workspace-id>.azuredatabricks.net
+      # Use service principal for production
+      # root_path: /Workspace/Bundles/${bundle.name}/${bundle.target}
+
+# Resources to be managed by the bundle
+resources:
+  jobs:
+    # Example Spark job
+    example_spark_job:
+      name: "Example Spark Job - ${bundle.target}"
+      tasks:
+        - task_key: main
+          description: "Main task"
+          notebook_task:
+            notebook_path: ./src/notebooks/example_notebook.py
+          new_cluster:
+            num_workers: 2
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "Standard_DS3_v2"
+            spark_conf:
+              "spark.databricks.delta.preview.enabled": "true"
+          libraries:
+            - pypi:
+                package: "pandas"
+            - pypi:
+                package: "numpy"
+      
+      email_notifications:
+        on_failure:
+          - ${workspace.current_user.email}
+
+  # Example pipeline
+  pipelines:
+    example_pipeline:
+      name: "Example Pipeline - ${bundle.target}"
+      target: "main"
+      libraries:
+        - notebook:
+            path: ./src/pipelines/example_pipeline.py
+      clusters:
+        - label: "default"
+          num_workers: 2
+          spark_version: "13.3.x-scala2.12"
+          node_type_id: "Standard_DS3_v2"
+      development: true
+      continuous: false
