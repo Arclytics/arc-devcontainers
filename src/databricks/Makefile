@@ -1,4 +1,4 @@
-.PHONY: help init validate deploy run destroy format lint test clean
+.PHONY: help init validate deploy run destroy format lint test clean git-hooks
 
 help:
 	@echo "Databricks Asset Bundle Makefile"
