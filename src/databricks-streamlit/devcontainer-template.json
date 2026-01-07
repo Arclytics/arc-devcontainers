@@ -1,0 +1,36 @@
+{
+    "id": "databricks-streamlit",
+    "version": "1.0.0",
+    "name": "Databricks with Streamlit",
+    "description": "Azure Databricks development environment for Streamlit apps with Databricks CLI, Streamlit, and pre-commit tools",
+    "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/databricks-streamlit",
+    "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
+    "options": {
+        "pythonVersion": {
+            "type": "string",
+            "description": "Python version to install",
+            "proposals": ["3.11", "3.10", "3.9"],
+            "default": "3.11"
+        },
+        "databricksCLIVersion": {
+            "type": "string",
+            "description": "Version of Databricks CLI to install",
+            "proposals": ["0.250.0", "0.240.0", "0.230.0"],
+            "default": "0.250.0"
+        },
+        "streamlitVersion": {
+            "type": "string",
+            "description": "Version of Streamlit to install",
+            "proposals": ["1.32.0", "1.31.0", "1.30.0"],
+            "default": "1.32.0"
+        }
+    },
+    "platforms": ["Any"],
+    "optionalPaths": [
+        "Makefile",
+        ".pre-commit-config.yaml",
+        ".editorconfig",
+        "databricks.yml",
+        "pyproject.toml"
+    ]
+}
