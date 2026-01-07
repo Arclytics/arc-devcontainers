@@ -16,6 +16,7 @@ Each template includes pre-configured toolchains, IDE extensions, and developmen
 | Template | Description | Version | Registry |
 |----------|-------------|---------|----------|
 | [Terraform](src/terraform/) | Production-ready Terraform environment with tfswitch, tflint, Azure CLI, and quality tools | 1.2.0 | `ghcr.io/arclytics/arc-devcontainers/terraform` |
+| [Azure Container Apps - Java](src/azure-container-apps-java/) | Java development environment for Azure Container Apps with Maven, Azure CLI, and containerization tools | 1.0.0 | `ghcr.io/arclytics/arc-devcontainers/azure-container-apps-java` |
 
 Additional templates for other technology stacks and workflows will be added as standardized environments are defined across the organization.
 
@@ -74,6 +75,7 @@ ghcr.io/arclytics/arc-devcontainers/terraform
 
 Available template references:
 - Terraform: `ghcr.io/arclytics/arc-devcontainers/terraform`
+- Azure Container Apps - Java: `ghcr.io/arclytics/arc-devcontainers/azure-container-apps-java`
 
 #### 5. Configure Template Options
 

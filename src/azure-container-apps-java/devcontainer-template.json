@@ -1,0 +1,32 @@
+{
+    "id": "azure-container-apps-java",
+    "version": "1.0.0",
+    "name": "Azure Container Apps - Java",
+    "description": "Java development environment for Azure Container Apps with Maven, Azure CLI, and containerization tools",
+    "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/azure-container-apps-java",
+    "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
+    "options": {
+        "javaVersion": {
+            "type": "string",
+            "description": "Java version to install",
+            "proposals": ["21", "17", "11"],
+            "default": "21"
+        },
+        "mavenVersion": {
+            "type": "string",
+            "description": "Maven version to install",
+            "proposals": ["3.9", "3.8", "latest"],
+            "default": "3.9"
+        },
+        "installGradle": {
+            "type": "boolean",
+            "description": "Install Gradle build tool",
+            "default": false
+        }
+    },
+    "platforms": ["Any"],
+    "optionalPaths": [
+        "Makefile",
+        ".editorconfig"
+    ]
+}
