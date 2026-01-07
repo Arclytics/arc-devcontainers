@@ -11,7 +11,7 @@ This template provides a production-ready Azure Databricks and PySpark developme
 - **PySpark** - Apache Spark Python API
 - **Azure CLI** - Azure cloud operations and authentication
 - **Zsh with Oh-My-Zsh** - Enhanced shell environment
-- **Java 11** - Required for Spark operations
+- **Java 21** - Required for Spark operations
 - **Git** and standard utilities
 
 ### Python Libraries

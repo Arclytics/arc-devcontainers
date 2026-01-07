@@ -7,11 +7,11 @@ ARG USERNAME=vscode
 USER ${USERNAME}
 
 # Install and configure zsh
-RUN sudo apt-get update && sudo apt-get install -y zsh openjdk-11-jdk-headless \
+RUN sudo apt-get update && sudo apt-get install -y zsh openjdk-21-jdk-headless \
     && sudo rm -rf /var/lib/apt/lists/*
 
 ENV SHELL /bin/zsh
-ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 # Install oh-my-zsh
 RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
