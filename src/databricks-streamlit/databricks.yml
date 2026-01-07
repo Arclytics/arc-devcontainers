@@ -1,0 +1,69 @@
+# Databricks Asset Bundle Configuration for Streamlit Apps
+# This is an example configuration file for deploying Streamlit apps to Databricks.
+# Customize this file according to your project requirements.
+
+bundle:
+  name: my-streamlit-app
+
+# Include additional configuration files
+include:
+  - resources/*.yml
+
+# Variables that can be referenced in resource definitions
+variables:
+  warehouse_id:
+    description: "Databricks SQL Warehouse ID"
+    default: "your-warehouse-id"
+
+# Target environments
+targets:
+  # Development environment
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://adb-<workspace-id>.azuredatabricks.net
+    
+  # Production environment
+  prod:
+    mode: production
+    workspace:
+      host: https://adb-<workspace-id>.azuredatabricks.net
+      # Use service principal for production
+      # root_path: /Workspace/Bundles/${bundle.name}/${bundle.target}
+
+# Resources to be managed by the bundle
+resources:
+  # Example Streamlit app
+  apps:
+    my_streamlit_app:
+      name: "My Streamlit App - ${bundle.target}"
+      description: "Interactive data application built with Streamlit"
+      resources:
+        - name: warehouse
+          warehouse:
+            id: ${var.warehouse_id}
+      source_code_path: ./src/app.py
+      
+  # Optional: Jobs for data preparation or ETL
+  jobs:
+    data_preparation:
+      name: "Data Preparation - ${bundle.target}"
+      tasks:
+        - task_key: prepare_data
+          description: "Prepare data for Streamlit app"
+          notebook_task:
+            notebook_path: ./src/notebooks/prepare_data.py
+          new_cluster:
+            num_workers: 2
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "Standard_DS3_v2"
+          libraries:
+            - pypi:
+                package: "pandas"
+            - pypi:
+                package: "numpy"
+      
+      email_notifications:
+        on_failure:
+          - ${workspace.current_user.email}
