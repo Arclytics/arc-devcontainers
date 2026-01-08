@@ -15,6 +15,7 @@ jobs:
             terraform: ./**/terraform/**
             azure-container-apps-java: ./**/azure-container-apps-java/**
             databricks: ./**/databricks/**
+            databricks-streamlit: ./**/databricks-streamlit/**
 
   test:
     needs: [detect-changes]
