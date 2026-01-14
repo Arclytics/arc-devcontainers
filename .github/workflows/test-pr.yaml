@@ -16,6 +16,7 @@ jobs:
             azure-container-apps-java: ./**/azure-container-apps-java/**
             databricks: ./**/databricks/**
             databricks-streamlit: ./**/databricks-streamlit/**
+            fabric-data-engineering: ./**/fabric-data-engineering/**
 
   test:
     needs: [detect-changes]
