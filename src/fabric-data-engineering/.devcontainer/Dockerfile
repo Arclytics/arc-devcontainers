@@ -10,7 +10,7 @@ USER ${USERNAME}
 RUN sudo apt-get update && sudo apt-get install -y zsh openjdk-21-jdk-headless \
     && sudo rm -rf /var/lib/apt/lists/*
 
-ENV SHELL /bin/zsh
+ENV SHELL=/bin/zsh
 ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 
 # Install oh-my-zsh
@@ -32,16 +32,16 @@ RUN echo 'export ZSH="$HOME/.oh-my-zsh"' > /home/${USERNAME}/.zshrc \
 
 # Install Microsoft Fabric CLI
 RUN if [ "${FABRIC_CLI_VERSION}" = "latest" ]; then \
-        pip install --user ms-fabric-cli; \
+        pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org ms-fabric-cli; \
     else \
-        pip install --user ms-fabric-cli==${FABRIC_CLI_VERSION}; \
+        pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org ms-fabric-cli==${FABRIC_CLI_VERSION}; \
     fi
 
 # Install PySpark and common data science libraries
-RUN pip install --user pyspark pandas numpy pyarrow polars duckdb
+RUN pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org pyspark pandas numpy pyarrow polars duckdb
 
 # Install Fabric Data Agent SDK and other Fabric-related packages
-RUN pip install --user fabric-data-agent-sdk azure-identity
+RUN pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org fabric-data-agent-sdk azure-identity
 
 # Optionally install Apache Spark locally
 RUN if [ "${INSTALL_SPARK_LOCALLY}" = "true" ]; then \
