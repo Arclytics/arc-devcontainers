@@ -8,7 +8,7 @@ Azure Databricks development environment with PySpark, Databricks CLI, Asset Bun
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | pythonVersion | Python version to install | string | 3.11 |
-| databricksCLIVersion | Version of Databricks CLI to install | string | 0.250.0 |
+| databricksCLIVersion | Version of Databricks CLI to install | string | 0.18.0 |
 | installSparkLocally | Install Apache Spark locally for offline development | boolean | false |
 
 ## Overview
@@ -20,7 +20,7 @@ This template provides a production-ready Azure Databricks and PySpark developme
 ### Development Tools
 
 - **Python** (configurable version, default: 3.11)
-- **Databricks CLI** (default: 0.250.0) - For Asset Bundles and workspace management
+- **Databricks CLI** (default: 0.18.0) - For Asset Bundles and workspace management
 - **PySpark** - Apache Spark Python API
 - **Azure CLI** - Azure cloud operations and authentication
 - **Zsh with Oh-My-Zsh** - Enhanced shell environment
@@ -103,7 +103,7 @@ After adding this template, your `.devcontainer/devcontainer.json` will look sim
   "build": {
     "dockerfile": "Dockerfile",
     "args": {
-      "DATABRICKS_CLI_VERSION": "0.250.0",
+      "DATABRICKS_CLI_VERSION": "0.18.0",
       "INSTALL_SPARK_LOCALLY": "false"
     }
   },

@@ -15,8 +15,8 @@
         "databricksCLIVersion": {
             "type": "string",
             "description": "Version of Databricks CLI to install",
-            "proposals": ["0.250.0", "0.240.0", "0.230.0"],
-            "default": "0.250.0"
+            "proposals": ["0.18.0", "0.17.8", "0.17.7"],
+            "default": "0.18.0"
         },
         "installSparkLocally": {
             "type": "boolean",
