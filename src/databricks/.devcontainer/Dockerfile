@@ -34,7 +34,7 @@ RUN echo 'export ZSH="$HOME/.oh-my-zsh"' > /home/${USERNAME}/.zshrc \
 RUN pip install --user databricks-cli==${DATABRICKS_CLI_VERSION}
 
 # Install PySpark and common data science libraries
-RUN pip install --user pyspark pandas numpy pyarrow
+RUN pip install --user pyspark pandas numpy pyarrow ruff
 
 # Optionally install Apache Spark locally
 RUN if [ "${INSTALL_SPARK_LOCALLY}" = "true" ]; then \

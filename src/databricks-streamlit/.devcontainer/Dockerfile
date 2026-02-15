@@ -40,7 +40,8 @@ RUN pip install --user streamlit==${STREAMLIT_VERSION} \
     altair \
     matplotlib \
     seaborn \
-    pyarrow
+    pyarrow \
+    ruff
 
 # Add user bin to PATH
 ENV PATH=$PATH:/home/${USERNAME}/.local/bin
