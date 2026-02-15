@@ -1,0 +1,34 @@
+{
+    "id": "fabric-data-engineering",
+    "version": "1.0.0",
+    "name": "Microsoft Fabric Data Engineering",
+    "description": "Microsoft Fabric data engineering environment with PySpark, Fabric CLI, Azure CLI, and development tools for Lakehouse and data pipelines",
+    "documentationURL": "https://github.com/Arclytics/arc-devcontainers/tree/main/src/fabric-data-engineering",
+    "licenseURL": "https://github.com/Arclytics/arc-devcontainers/blob/main/LICENSE",
+    "options": {
+        "pythonVersion": {
+            "type": "string",
+            "description": "Python version to install",
+            "proposals": ["3.11", "3.10"],
+            "default": "3.11"
+        },
+        "fabricCLIVersion": {
+            "type": "string",
+            "description": "Version of Microsoft Fabric CLI to install",
+            "proposals": ["latest", "1.0.0"],
+            "default": "latest"
+        },
+        "installSparkLocally": {
+            "type": "boolean",
+            "description": "Install Apache Spark locally for offline development",
+            "default": false
+        }
+    },
+    "platforms": ["Any"],
+    "optionalPaths": [
+        "Makefile",
+        ".pre-commit-config.yaml",
+        ".editorconfig",
+        "pyproject.toml"
+    ]
+}
