@@ -43,6 +43,9 @@ RUN pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted
 # Install Fabric Data Agent SDK and other Fabric-related packages
 RUN pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org fabric-data-agent-sdk azure-identity
 
+# Install development tools
+RUN pip install --user --trusted-host pypi.org --trusted-host files.pythonhosted.org ruff pytest pytest-cov mypy
+
 # Optionally install Apache Spark locally
 RUN if [ "${INSTALL_SPARK_LOCALLY}" = "true" ]; then \
         SPARK_VERSION=3.5.0 && \
